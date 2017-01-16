@@ -43,7 +43,7 @@ __If you've got Golang setup up, then:__
 
 __If not, here are some precompiled links:__
 
-- [MacOS Darwin amd64]()
+- [MacOS Darwin x64]()
 - [Linux x86]()
 - [Linux x64]()
 
