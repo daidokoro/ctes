@@ -45,5 +45,5 @@ __If you've got Golang setup up, then:__
     go get -v github.com/daidokoro/ctes
 
 
-Compiled Binaries available (here!)[https://github.com/daidokoro/ctes/releases]
+Compiled Binaries available [here!](https://github.com/daidokoro/ctes/releases)
 
