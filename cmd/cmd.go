@@ -125,10 +125,9 @@ func (r *Request) s3List(c chan string) {
 				//TODO: Do something with Items from Job Queue
 				for _, obj := range j {
 					if strings.Contains(*obj.Key, ".gz") && !strings.Contains(*obj.Key, "Digest") {
-						// fmt.Println("add")
+
 						c <- *obj.Key // Pass Key to channel (sort of like yield in python)
 
-						// log := fmt.Sprintf("INFO: Found %d keys [%s]", *f, r.Prefix)
 					}
 				}
 
@@ -216,7 +215,6 @@ func (r *Request) Log() {
 			if ok {
 				o, err := r.getRecords(k)
 
-				// fmt.Println(o)
 				s3log(o, log)
 				if err != "" {
 					// fmt.Printf("ERROR: %s\n", err)
