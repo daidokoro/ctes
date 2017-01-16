@@ -1,10 +1,11 @@
-package s3trail
+package cmd
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"strings"
 
 	elastic "gopkg.in/olivere/elastic.v5"
@@ -16,7 +17,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-// Request - Type used for making requests to S3 and Elasticsearch
+// Request - Type used for handling requests to S3, Elasticsearch and Logging
 type Request struct {
 	URL    string
 	Bucket string
@@ -34,7 +35,7 @@ func s3log(d []*map[string]string, log *logrus.Logger) {
 			o[k] = v
 		}
 
-		log.WithFields(o).Info("")
+		log.WithFields(o).Info("Cloudtrail Log")
 	}
 }
 
@@ -44,7 +45,8 @@ func (r *Request) addHook(log *logrus.Logger) {
 	if err != nil {
 		log.Panic(err)
 	}
-	hook, err := elogrus.NewElasticHook(c, "localhost", logrus.DebugLevel, "cloudtrail")
+	hostname, _ := os.Hostname()
+	hook, err := elogrus.NewElasticHook(c, hostname, logrus.DebugLevel, "cloudtrail")
 	if err != nil {
 		log.Panic(err)
 	}
@@ -52,6 +54,7 @@ func (r *Request) addHook(log *logrus.Logger) {
 	log.Hooks.Add(hook)
 }
 
+// flatten - Recursively traverses a given map[string]interface{} and creates a flat version of the same, i.e No sub-branches
 func (r *Request) flatten(m map[string]interface{}, o map[string]string, key string) {
 	// takes a map[string]interface{} from arbitrary json output and flattens to a map
 	for k, v := range m {
@@ -68,13 +71,14 @@ func (r *Request) flatten(m map[string]interface{}, o map[string]string, key str
 	}
 }
 
+// getResp - Reads the Body of an http response and gives me a string
 func (r *Request) getResp(b io.ReadCloser) string {
-	// Reads the Body of an http response and gives me a string
 	buf := new(bytes.Buffer)
 	buf.ReadFrom(b)
 	return buf.String()
 }
 
+// s3List - populates a channel with objects listed from S3
 func (r *Request) s3List(c chan string) {
 	todo := make(chan []*s3.Object)
 	done := make(chan bool)
@@ -139,6 +143,7 @@ func (r *Request) s3List(c chan string) {
 	<-done
 }
 
+// getRecords - Creates an array of individual cloudtrail records from a group of same.
 func (r *Request) getRecords(key string) ([]*map[string]string, string) {
 	svc := s3.New(session.New(), &aws.Config{Region: aws.String("eu-west-1")})
 	params := &s3.GetObjectInput{
@@ -158,7 +163,7 @@ func (r *Request) getRecords(key string) ([]*map[string]string, string) {
 	// Unbuffer response body
 	str := r.getResp(resp.Body)
 
-	// Create byte sting
+	// Create byte string array
 	b := []byte(str)
 
 	// Create empty interface for arbitrary data
