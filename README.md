@@ -47,11 +47,11 @@ __If you've got Golang setup up, then:__
 
 __If not, here are some precompiled links:__
 
-- [MacOS Darwin x64]()
-- [Linux x86]()
-- [Linux x64]()
+- [MacOS Darwin x64](https://s3-eu-west-1.amazonaws.com/ctes-dev/darwin_amd64/ctes)
+- [Linux x86](https://s3-eu-west-1.amazonaws.com/ctes-dev/linux_386/ctes)
+- [Linux x64](https://s3-eu-west-1.amazonaws.com/ctes-dev/linux_amd64/ctes)
 
 __Untested Builds!__
 
-- [Windows x86]()
-- [Windows x64]()
+- [Windows x86](https://s3-eu-west-1.amazonaws.com/ctes-dev/windows_386/ctes.exe)
+- [Windows x64](https://s3-eu-west-1.amazonaws.com/ctes-dev/windows_amd64/ctes.exe)
