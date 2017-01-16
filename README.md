@@ -33,6 +33,10 @@ Options:
   -r, --region="eu-west-1"   AWS Region
 ```
 
+## Example
+
+![Alt text](demo.gif?raw=true "Demo")
+
 
 ## Install
 
