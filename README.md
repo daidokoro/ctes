@@ -30,6 +30,7 @@ Arguments:
 Options:
   -p, --prefix="AWSLogs"   S3 Object Prefix, useful for narrowing Cloudtrail searches/results
   -u, --url=""             Elasticsearch URL, if not specified, results are printed to stdout
+  -r, --region="eu-west-1"   AWS Region
 ```
 
 
