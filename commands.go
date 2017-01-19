@@ -28,7 +28,7 @@ var rootCmd = &cobra.Command{
 
 		bucket := args[0]
 
-		r := &Request{
+		req := &Request{
 			Bucket: bucket,
 			Prefix: prefix,
 			URL:    url,
@@ -36,7 +36,7 @@ var rootCmd = &cobra.Command{
 		}
 
 		// Run Log Job
-		r.Log()
+		req.Log()
 
 	},
 }
