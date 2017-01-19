@@ -17,20 +17,19 @@ The project was born of a very specific need to print and grep Cloudtrail logs, 
 
 ## Usage
 
-```
+```sh
 $ ctes
-
-Usage: ctes [OPTIONS] BUCKET
 
 Simple CLI tool for printing CloudTrail Logs or Pushing them to Elasticsearch
 
-Arguments:
-  BUCKET=""    Cloudtrail S3 Bucket
+Usage:
+  ctes [s3 bucket] [flags]
 
-Options:
-  -p, --prefix="AWSLogs"   S3 Object Prefix, useful for narrowing Cloudtrail searches/results
-  -u, --url=""             Elasticsearch URL, if not specified, results are printed to stdout
-  -r, --region="eu-west-1"   AWS Region
+Flags:
+  -p, --prefix string   Prefix of the S3 Key, useful for narrowing searches and output (default "AWSLogs")
+  -r, --region string   AWS Region where S3 Bucket resides (default "eu-west-1")
+  -u, --url string      Elasticsearch URL Endpoint
+
 ```
 
 ## Example
@@ -46,4 +45,3 @@ __If you've got Golang setup up, then:__
 
 
 Compiled Binaries available [here!](https://github.com/daidokoro/ctes/releases)
-
