@@ -28,7 +28,7 @@ var rootCmd = &cobra.Command{
 
 		bucket := args[0]
 
-		r := Request{
+		r := &Request{
 			Bucket: bucket,
 			Prefix: prefix,
 			URL:    url,
